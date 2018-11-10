@@ -23,8 +23,8 @@ def init_instruments():
 
     # create and setup Alazar
     from qcodes.instrument_drivers.AlazarTech import utils
-    from qcodes.instrument_drivers.AlazarTech.ATS9870 import AlazarTech_ATS9870
-    alazar = instools.create_inst(AlazarTech_ATS9870, 'alazar', force_new_instance=True)
+    from qcodes.instrument_drivers.AlazarTech.ATS9360 import AlazarTech_ATS9360
+    alazar = instools.create_inst(AlazarTech_ATS9360, 'alazar', force_new_instance=True)
     inst_list.append(alazar)
 
     from pytopo.rf.alazar import acquisition_tools
@@ -45,9 +45,13 @@ def init_instruments():
     
     TWPA = instools.create_inst(RohdeSchwarz_SGS100A, 'TWPA', address="TCPIP0::169.254.238.193", force_new_instance=True)
     inst_list.append(TWPA)
+    TWPA.pulsemod_source('EXT')
+    TWPA.pulsemod_state('On')
 
     RF = instools.create_inst(RohdeSchwarz_SGS100A, 'RF', address="TCPIP0::169.254.248.54", force_new_instance=True)
     inst_list.append(RF)
+    RF.pulsemod_source('EXT')
+    RF.pulsemod_state('On')
 
 
     from qcodes.instrument_drivers.agilent.E8267C import E8267
