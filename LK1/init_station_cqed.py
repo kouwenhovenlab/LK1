@@ -40,22 +40,22 @@ def init_instruments():
 
     # RF sources
     from qcodes.instrument_drivers.rohde_schwarz.SGS100A import RohdeSchwarz_SGS100A
-    LO = instools.create_inst(RohdeSchwarz_SGS100A, 'LO', address="TCPIP0::169.254.2.20", force_new_instance=True)
+    LO = instools.create_inst(RohdeSchwarz_SGS100A, 'LO', address="TCPIP0::169.254.56.16", force_new_instance=True)
     inst_list.append(LO)
     
-    TWPA = instools.create_inst(RohdeSchwarz_SGS100A, 'TWPA', address="TCPIP0::169.254.238.193", force_new_instance=True)
+    TWPA = instools.create_inst(RohdeSchwarz_SGS100A, 'TWPA', address="TCPIP0::169.254.2.20", force_new_instance=True)
     inst_list.append(TWPA)
     TWPA.pulsemod_source('EXT')
-    TWPA.pulsemod_state('On')
+    TWPA.pulsemod_state('Off') #Pulsemod doesn't seem to play nicely with the TWPA when its on the same source as the RF. 
 
-    RF = instools.create_inst(RohdeSchwarz_SGS100A, 'RF', address="TCPIP0::169.254.248.54", force_new_instance=True)
+    RF = instools.create_inst(RohdeSchwarz_SGS100A, 'RF', address="TCPIP0::169.254.238.193", force_new_instance=True)
     inst_list.append(RF)
     RF.pulsemod_source('EXT')
-    RF.pulsemod_state('On')
-
-
-    from qcodes.instrument_drivers.agilent.E8267C import E8267
-    qubsrc = instools.create_inst(E8267, 'qubsrc', address='GPIB0::19::INSTR', force_new_instance=True)
+    RF.pulsemod_state('Off')
+    
+    qubsrc = instools.create_inst(RohdeSchwarz_SGS100A, 'qubsrc', address="TCPIP0::169.254.248.54", force_new_instance=True)
+    qubsrc.pulsemod_source('EXT')
+    qubsrc.pulsemod_state('Off')
     inst_list.append(qubsrc)
 
     from pytopo.rf.sources import HeterodyneSource
