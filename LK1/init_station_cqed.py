@@ -13,7 +13,7 @@ qc.config['user']['instruments'] = {
     'alazar_name' : 'alazar',
     'default_acquisition_controller' : 'post_iq_acq',
     }
-
+qc.config['user']['setup_constants'] = {'phase_reference_arm_delay' : 347e-9}
 
 # init instruments lives in a function (to be able to import without loading instruments.)
 def init_instruments():
